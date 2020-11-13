@@ -36,11 +36,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
-                <h1 style="text-align: center">Weather</h1>
-                <p id="cityWeather">
-
-                </p>
+            <div class="col-8" style="text-align: center;">
+                <h1 id="cityWeather">
             </div>
         </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -54,13 +51,14 @@ var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + userCity +
 console.log(queryURL)
 
    
-// $.ajax({
-//     url: queryURL,
-//     method: "GET"
-// }).then(function(response){
-//     $("#cityWeather").text(JSON.stringify(response))
-//     console.log(response)
-// })
+$.ajax({
+    url: queryURL,
+    method: "GET"
+}).then(function(response){
+    $("#cityWeather").text(response.name)
+    $("#cityWeather").append(" " +response.weather[0].main)
+    console.log(response)
+})
 })
 </script>
 </body>
