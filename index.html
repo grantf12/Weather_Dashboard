@@ -10,14 +10,13 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
-    
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
-    </head>
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous"></script>
+</head>
 
 <body>
     <header>
@@ -26,8 +25,8 @@
     </header>
     <div class=container>
         <div class="row flex-xl-nowrap ml-3">
-            <div class"col-md-3 d-flex bd-sidebar">
-                <div class="d-flex align-items-center">
+            <div class="col-md-3 d-flex bd-sidebar">
+                <div class="d-flex">
                     <span style="position: relative; display: inline-block; direction: ltr">
                         <input type="text" class="form-control" id="searchCity" placeholder="City">
                     </span>
@@ -36,31 +35,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-8" style="text-align: center;">
-                <h1 id="cityWeather">
+            <div class="col-8">
+                <div class="row col-12"id="cityWeather" style="width: 100%;"></div>
+                <div class='row col-12'><h3 class=fiveDayTitle></h3></div>
+                <div class='row col-12' id=fiveDayForecast></div>
             </div>
         </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="script.js"></script>
-<script>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="script.js"></script>
 
-$("#searchBtn").on("click", function(){
-var APIkey = "81bcb345a0607fbd12d0daf0e6a57fd3";
-var userCity = $("#searchCity").val().trim();
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + userCity + "&appid=" + APIkey;
-console.log(queryURL)
-
-   
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function(response){
-    $("#cityWeather").text(response.name)
-    $("#cityWeather").append(" " +response.weather[0].main)
-    console.log(response)
-})
-})
-</script>
 </body>
 
 </html>
