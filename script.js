@@ -54,30 +54,35 @@ $("#searchBtn").on("click", function(){
             var fiveDayCards
             var forecastCard = $('<div class= card col-2 bg-primary>').addClass('cards');
             var forevastBody = $('<div>').addClass('row');
-            
+              var uv = $('<p>').addClass('uvInfo').text('UV-Index: ');
+            cardBody.append(uv);
+
             console.log(responses.current.temp)
             console.log(responses.current.humidity)
             console.log(responses.current.uvi)
-                // Finds the UV-Index inside the second ajax call and appends it to the weather card from first ajax call
+            // Finds the UV-Index inside the second ajax call
             var uvIndex = responses.current.uvi
+                    console.log(uvIndex)
+            // Creates a button
             var uvBtn = $('<button>')
-            if (uvIndex < 3) {
-                uvBtn.text(uvIndex)
-                uvBtn.addClass('btn btn-sucess')
-                $(uv).append(uvBtn)
-            }
-            else if (uvIndex >= 3 && uvIndex <= 7) {
-                uvBtn.text(uvIndex)
-                uvBtn.addClass('btn btn-warning')
-                $(uv).append(uvBtn)
-            }
-            else {
-                uvBtn.text(uvIndex)
-                uvBtn.addClass('btn btn-danger')
-                $(uv).append(uvBtn)
-            }
-            var uv = $('<p>').addClass('uvInfo').text('UV-Index: ');
-            cardBody.append(uv);
+            // Creates text for the button
+            $(uvBtn).text(uvIndex)
+            // Appends the button to the <p> with the UV-Index
+            $(uv).append(uvBtn)
+            // If statements that change the color of the button depending on how high the uv-index is
+                if (uvIndex < 3) {
+                    uvBtn.text(uvIndex)
+                    uvBtn.addClass('btn btn-sucess')
+                }
+                else if (uvIndex >= 3 && uvIndex <= 7) {
+                    uvBtn.text(uvIndex)
+                    uvBtn.addClass('btn btn-warning')
+                }
+                else {
+                    uvBtn.text(uvIndex)
+                    uvBtn.addClass('btn btn-danger')
+                }
+              
         })
         
     }
