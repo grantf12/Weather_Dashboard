@@ -83,6 +83,9 @@ $("#searchBtn").on("click", function(){
         
         for(i=0;i<5;i++){
             var position = responses.daily[i];
+            var dateDaily = (now.add(1, 'days')).format(" MM/DD/YY");
+            console.log(dateDaily)
+            
             var tempDay = position.temp.day;
             var humidDay = position.humidity
             var weatherIcon = position.weather[0].icon;
@@ -90,7 +93,7 @@ $("#searchBtn").on("click", function(){
             var forecastBody = $('<div>').addClass('card col-2.5 bg-primary text-white');
 
             var dateCard = $('<h6 class="card-title"></h6>')
-                $(dateCard).text("Date: " + position.dt);
+                $(dateCard).text("Date: " + dateDaily);
                 $(forecastBody).append(dateCard);
             var iconCard = $('<img>');
                 $(iconCard).attr("src", "http://openweathermap.org/img/w/" + weatherIcon + ".png");
