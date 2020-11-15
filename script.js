@@ -1,14 +1,29 @@
 var lon;
 var lat;
 
-$("#searchBtn").on("click", function(){
+$("button").on("click", function(){
    
     var APIkey = "81bcb345a0607fbd12d0daf0e6a57fd3";
     // City the user is searching for
     var userCity = $("#searchCity").val().trim();
+    if (userCity === "City") {
+            userCity = $()
+        }
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + userCity + "&units=imperial&appid=" + APIkey;
     console.log(queryURL);
     var now = moment();
+    // Clears the 5 day forecast
+   $('#fiveDayForecast').html("")
+    
+   
+// Creates buttons whenver a new city is searched
+var cityHistory = $("#searchCity").val().trim();
+var searchHistory = $('<div><button style="width: 100%" class="bg bg-primary">' + cityHistory + '</button></div>')
+$('.history').append(searchHistory)
+localStorage.setItem("City", userCity);
+
+
+
         
     // ajax call to open weather
     $.ajax({
@@ -84,12 +99,11 @@ $("#searchBtn").on("click", function(){
         for(i=0;i<5;i++){
             var position = responses.daily[i];
             var dateDaily = (now.add(1, 'days')).format(" MM/DD/YY");
-            console.log(dateDaily)
-            
+
+            //  Set variables for daily temp and humidity
             var tempDay = position.temp.day;
             var humidDay = position.humidity
             var weatherIcon = position.weather[0].icon;
-            console.log(weatherIcon)
             var forecastBody = $('<div>').addClass('card col-2.5 bg-primary text-white');
 
             var dateCard = $('<h6 class="card-title"></h6>')
@@ -99,19 +113,12 @@ $("#searchBtn").on("click", function(){
                 $(iconCard).attr("src", "http://openweathermap.org/img/w/" + weatherIcon + ".png");
                 $(forecastBody).append(iconCard)
             var tempCard = $('<p class="card-body"></p>');
-                $(tempCard).text("Temp: " + tempDay);
+                $(tempCard).text("Temp: " + tempDay + ' ℉');
                 $(forecastBody).append(tempCard);
             var humidCard = $('<p class="card-body"></p>')
                 $(humidCard).text("Humidity: " + humidDay);
                 $(forecastBody).append(humidCard)
-            // var tempCard = $('<img class="miniIcon"><i>Icon')
-          
-            // //(<h3 class="card-title date1"><small>'Date: ' + position.dt</small></h3>
-            // <p><img class ='miniWeather1'><small><i>Icon: ${position.weather[0].icon}</i></small></p>
-            // <p class="card-text temp1"><small>Temp: ${position.temp.day}</small></p>
-            // <p class="card-text humidity1"><small>Humidity: ${position.humidity}</small></p>)
-           
-            // $(forecastCard).append(forecastBody)
+            
             $('#fiveDayForecast').append(forecastBody)
         }
     })
@@ -120,18 +127,5 @@ $("#searchBtn").on("click", function(){
     fiveDaysLater();
 });
 
+$("#searchCity").val("")
 });
-
-
-            for(i=0;i>5;i++){
-                var position = responses.daily[i];
-                $(forecastBody).HTML+=
-                `<div class = 'card col-2 bg-primary'>
-                <div class="card-body">
-                <h3 class="card-title date1"><small>Date: ${position.dt}</small></h3>
-                <p><img class ='miniWeather1'><small><i>Icon: ${position.weather[0].icon}</i></small></p>
-                <p class="card-text temp1"><small>Temp: ${Math.floor(((position.temp.day) - 273.15) * 1.8 + 32)}</small></p>
-                <p class="card-text humidity1"><small>Humidity: ${position.humidity}</small></p>
-                </div>
-                </div>`
-            }
