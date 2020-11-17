@@ -1,13 +1,14 @@
 var lon;
 var lat;
+var cities = [];
 
 $("button").on("click", function(){
    
     var APIkey = "81bcb345a0607fbd12d0daf0e6a57fd3";
     // City the user is searching for
     var userCity = $("#searchCity").val().trim();
-    if (userCity === "City") {
-            userCity = $()
+    if ($('#searchCity') === null) {
+            userCity = (JSON.parse(localStorage.getItem(cities[0])))
         }
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + userCity + "&units=imperial&appid=" + APIkey;
     console.log(queryURL);
@@ -20,7 +21,10 @@ $("button").on("click", function(){
 var cityHistory = $("#searchCity").val().trim();
 var searchHistory = $('<div><button style="width: 100%" class="bg bg-primary">' + cityHistory + '</button></div>')
 $('.history').append(searchHistory)
-localStorage.setItem("City", userCity);
+
+// Local Storage 
+cities.push(userCity)
+localStorage.setItem("City", JSON.stringify(cities));
 
 
 
